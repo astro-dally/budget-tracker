@@ -1,5 +1,3 @@
-<div align="center">
-
 # 💸 Budget Tracker
 
 ### Personal budgeting with smart spending alerts — warned *while* you spend, not at month-end.
@@ -12,11 +10,9 @@
 [![Tests](https://img.shields.io/badge/tests-151_passing-brightgreen)](#-testing--quality)
 [![Coverage](https://img.shields.io/badge/coverage-97%25-brightgreen)](#-testing--quality)
 [![mypy](https://img.shields.io/badge/mypy-strict-1F5082)](https://mypy-lang.org/)
-[![Docker](https://img.shields.io/badge/Docker-ready-2496ED?logo=docker&logoColor=white)](#-deployment)
+[![Docker](https://img.shields.io/badge/Docker-ready-2496ED?logo=docker&logoColor=white)](#or-everything-with-docker)
 
-[Features](#-features) · [Quick start](#-quick-start) · [Demo](#-demo-walkthrough) · [Architecture](#%EF%B8%8F-architecture) · [API](#-api) · [Deployment](#-deployment) · [Docs](#-documentation)
-
-</div>
+[Features](#-features) · [Quick start](#-quick-start) · [Demo](#-demo-walkthrough) · [Architecture](#%EF%B8%8F-architecture) · [API](#-api) · [Docs](#-documentation)
 
 ---
 
@@ -55,7 +51,7 @@ It's a full multi-user web app: anyone can sign up, every account's data is isol
 | **Frontend** | Next.js 15 (App Router) · React 19 · TypeScript · Tailwind CSS 4 · shadcn/ui · Recharts · TanStack Query · React Hook Form + Zod |
 | **Database** | SQLite by default (zero setup) · PostgreSQL supported via `DATABASE_URL` |
 | **Quality** | pytest (151 tests, 97% coverage) · ruff · mypy `--strict` · ESLint (zero warnings) · strict TypeScript |
-| **Ops** | Docker · Docker Compose · Caddy (automatic HTTPS) |
+| **Ops** | Docker · Docker Compose |
 
 ---
 
@@ -124,7 +120,7 @@ The sign-in page shows these as one-click cards, so you never have to type them.
 Eight extra lightweight accounts (one deactivated) are also created so the admin user list looks realistic. You can also **create your own account** at `/signup`; it starts with common categories and keyword rules already set up.
 
 > [!WARNING]
-> Demo accounts use publicly known passwords, including an admin. Set `SEED_DEMO_DATA=false` on any real deployment.
+> Demo accounts use publicly known passwords, including an admin. Set `SEED_DEMO_DATA=false` if the app is reachable by anyone else.
 
 ---
 
@@ -238,11 +234,8 @@ budget-tracker/
 │       ├── components/      # ui/ (shadcn), layout/, shared/, one folder per page
 │       ├── hooks/           # SSE alert stream, debounce, count-up
 │       └── lib/             # Typed API client, auth, session, queries, Zod schemas
-├── docs/                    # DESIGN · UML · EXTENDING · DEPLOYMENT · VIVA_QA
-├── docker-compose.yml       # Local: one command
-├── docker-compose.prod.yml  # Production: backend + frontend + Caddy (HTTPS)
-├── Caddyfile                # Reverse proxy config for production
-└── .env.production.example  # Template for the production .env
+├── docs/                    # DESIGN · UML · EXTENDING · VIVA_QA
+└── docker-compose.yml       # Run everything with one command
 ```
 
 ---
@@ -424,33 +417,6 @@ npm run build
 
 ---
 
-## 🌍 Deployment
-
-**Single VPS with Docker and automatic HTTPS** (recommended):
-
-```bash
-cp .env.production.example .env        # set your domains + JWT secret
-docker compose -f docker-compose.prod.yml up -d --build
-```
-
-This runs the backend, the frontend and a [Caddy](https://caddyserver.com/) reverse proxy that obtains and renews Let's Encrypt certificates automatically. Only ports 80 and 443 are exposed to the internet.
-
-**Managed hosting** also works: backend on Render / Railway / Fly.io (with PostgreSQL), frontend on Vercel or Netlify.
-
-📖 **Full step-by-step guide — server setup, DNS, HTTPS, first admin account, backups, updates, troubleshooting: [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)**
-
-**Production checklist**
-
-- [ ] Strong, stable `JWT_SECRET` (generated once, kept in `.env`)
-- [ ] HTTPS everywhere
-- [ ] `SEED_DEMO_DATA=false` unless you want public demo logins
-- [ ] `CORS_ORIGINS` set to your frontend's exact URL
-- [ ] Frontend built with `NEXT_PUBLIC_API_BASE_URL` = your public API URL
-- [ ] Real SMTP settings if you want e-mail alerts
-- [ ] Regular database backups
-
----
-
 ## 📌 Assumptions & limitations
 
 - **Single currency** — INR by default; change `NEXT_PUBLIC_CURRENCY`.
@@ -475,7 +441,6 @@ This runs the backend, the frontend and a [Caddy](https://caddyserver.com/) reve
 | [DESIGN.md](docs/DESIGN.md) | Architecture, pattern mapping, SOLID, data model, edge cases, trade-offs |
 | [UML.md](docs/UML.md) | Component, class and sequence diagrams for every pattern and flow |
 | [EXTENDING.md](docs/EXTENDING.md) | Worked examples: a new alert rule, report, notification channel and categorisation handler |
-| [DEPLOYMENT.md](docs/DEPLOYMENT.md) | Step-by-step production deployment |
 | [VIVA_QA.md](docs/VIVA_QA.md) | Common questions about the design, answered |
 
 ## 🤝 Contributing
@@ -491,9 +456,6 @@ cd frontend && npm run typecheck && npm run lint && npm run build
 
 No license has been chosen yet. Until a `LICENSE` file is added, all rights are reserved by the author.
 
-<div align="center">
-<br>
+---
 
 **If this project helped you, consider giving it a ⭐**
-
-</div>
