@@ -1,0 +1,35 @@
+# One-command run:  docker compose up --build
+# Frontend: http://localhost:3000   API docs: http://localhost:8000/docs
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: sqlite:////data/budget_tracker.db
+      CORS_ORIGINS: http://localhost:3000,http://127.0.0.1:3000
+      SEED_DEMO_DATA: "true"
+      # Override for any real deployment: JWT_SECRET=... docker compose up
+      JWT_SECRET: ${JWT_SECRET:-dev-only-change-me-in-production-0123456789abcdef}
+    volumes:
+      - budget-data:/data
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        # Read by the browser, so it must be the URL your browser can reach.
+        NEXT_PUBLIC_API_BASE_URL: http://localhost:8000
+    ports:
+      - "3000:3000"
+    depends_on:
+      backend:
+        condition: service_healthy
+
+volumes:
+  budget-data:

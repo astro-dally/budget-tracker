@@ -1,0 +1,224 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design tokens. Light: mineral canvas with white surfaces and a "ledger
+ * green" primary. Amber and red are reserved for budget health so that
+ * colour always carries meaning (80% and 100% thresholds).
+ */
+:root {
+  --radius: 0.75rem;
+  --background: #f4f6f5;
+  --foreground: #15201b;
+  --card: #ffffff;
+  --card-foreground: #15201b;
+  --popover: #ffffff;
+  --popover-foreground: #15201b;
+  --primary: #1d6b53;
+  --primary-foreground: #f2faf6;
+  --secondary: #e8eeeb;
+  --secondary-foreground: #15201b;
+  --muted: #eef2f0;
+  --muted-foreground: #56645d;
+  --accent: #e6efea;
+  --accent-foreground: #15201b;
+  --destructive: #c23b2e;
+  --border: #dee5e1;
+  --input: #cfd8d3;
+  --ring: #1d6b53;
+  --success: #1f8a5b;
+  --warning: #b97a08;
+  --danger: #c23b2e;
+  --track: #e5ebe8;
+  --chart-income: #1d6b53;
+  --chart-expense: #d07a3c;
+  --chart-3: #3b8fd9;
+  --chart-4: #9b6cf0;
+  --chart-5: #df5f86;
+  /* Ledger surfaces: the deep green used for hero moments */
+  --ledger: #0b3b2d;
+  --ledger-2: #13573f;
+  --lime: #c6f36d;
+  --gold: #ffc857;
+  --coral: #ff7f6a;
+}
+
+.dark {
+  --background: #0e1412;
+  --foreground: #e4ebe7;
+  --card: #151d1a;
+  --card-foreground: #e4ebe7;
+  --popover: #18211d;
+  --popover-foreground: #e4ebe7;
+  --primary: #4fc08f;
+  --primary-foreground: #06140e;
+  --secondary: #1e2925;
+  --secondary-foreground: #e4ebe7;
+  --muted: #1a2420;
+  --muted-foreground: #97a79f;
+  --accent: #1f2b26;
+  --accent-foreground: #e4ebe7;
+  --destructive: #ef6a5b;
+  --border: #25312c;
+  --input: #2f3d37;
+  --ring: #4fc08f;
+  --success: #4fc08f;
+  --warning: #e6a93a;
+  --danger: #ef6a5b;
+  --track: #222d29;
+  --chart-income: #4fc08f;
+  --chart-expense: #e8955a;
+  --chart-3: #5aa7ea;
+  --chart-4: #ae8af5;
+  --chart-5: #ec7d9f;
+  --ledger: #0a2c22;
+  --ledger-2: #0f4231;
+}
+
+@theme inline {
+  --font-sans: "IBM Plex Sans Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    sans-serif;
+  --font-display: "Bricolage Grotesque Variable", "IBM Plex Sans Variable", ui-sans-serif,
+    system-ui, sans-serif;
+  --color-ledger: var(--ledger);
+  --color-ledger-2: var(--ledger-2);
+  --color-lime: var(--lime);
+  --color-gold: var(--gold);
+  --color-coral: var(--coral);
+  --animate-marquee: marquee 48s linear infinite;
+  --animate-rise: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-toast: toast-in 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-track: var(--track);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes ping-soft {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+@utility font-display {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+}
+
+/* Faint ledger ruling used on the deep-green hero surfaces */
+@utility ledger-grid {
+  background-image:
+    linear-gradient(rgb(255 255 255 / 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.045) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+@utility ping-soft {
+  animation: ping-soft 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    color-scheme: light;
+  }
+  html.dark {
+    color-scheme: dark;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "ss01", "ss02";
+  }
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+  h1 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+  input[type="range"] {
+    accent-color: var(--lime);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
