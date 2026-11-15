@@ -441,7 +441,6 @@ npm run build
 | [DESIGN.md](docs/DESIGN.md) | Architecture, pattern mapping, SOLID, data model, edge cases, trade-offs |
 | [UML.md](docs/UML.md) | Component, class and sequence diagrams for every pattern and flow |
 | [EXTENDING.md](docs/EXTENDING.md) | Worked examples: a new alert rule, report, notification channel and categorisation handler |
-| [VIVA_QA.md](docs/VIVA_QA.md) | Common questions about the design, answered |
 
 ## 🤝 Contributing
 
